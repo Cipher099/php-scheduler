@@ -1,15 +1,15 @@
 {
-    "name":             "pmill/php-scheduler",
+    "name":             "cipher099/php-scheduler",
     "description":      "Simple PHP task scheduler",
     "keywords":         ["php", "task", "scheduler", "cron"],
-    "homepage":         "https://github.com/pmill/php-scheduler",
+    "homepage":         "https://github.com/cipher099/php-scheduler",
     "time":             "2015-02-06",
     "license":          "MIT",
     "authors": [
         {
-            "name":         "pmill",
-            "email":        "dev.pmill@gmail.com",
-            "homepage":     "https://github.com/pmill",
+            "name":         "Cipher099",
+            "email":        "user@domain.com",
+            "homepage":     "https://github.com/Cipher099",
             "role":         "Author"
         }
     ],

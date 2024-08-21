@@ -17,6 +17,12 @@ abstract class Task implements TaskInterface
     protected $output;
 
     /**
+     * The name of the task for visualise
+     * @var
+     */
+    protected $task_name;
+
+    /**
      * @return mixed
      */
     abstract public function run();
