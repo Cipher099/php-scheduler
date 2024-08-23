@@ -1,4 +1,5 @@
 <?php
+
 namespace pmill\Scheduler\Tasks;
 
 class Shell extends Task
@@ -19,8 +20,8 @@ class Shell extends Task
     public function run()
     {
         $output = null;
-        exec($this->getCommand().' '.implode(' ', $this->arguments), $output, $result);
-             
+        exec($this->getCommand() . ' ' . implode(' ', $this->arguments), $output, $result);
+
         $this->setOutput($output);
         return $result;
     }
@@ -61,4 +62,13 @@ class Shell extends Task
         return $this->arguments;
     }
 
+    public function getTaskName()
+    {
+        return "Shell Task";
+    }
+
+    public function getTaskDescription()
+    {
+        return $this->command;
+    }
 }

@@ -17,10 +17,16 @@ abstract class Task implements TaskInterface
     protected $output;
 
     /**
-     * The name of the task for visualise
+     * The name of the task for visualization
      * @var
      */
-    protected $task_name;
+    abstract public function getTaskName();
+
+    /**
+     * A short description of the task
+     * @return mixed
+     */
+    abstract public function getTaskDescription();
 
     /**
      * @return mixed
