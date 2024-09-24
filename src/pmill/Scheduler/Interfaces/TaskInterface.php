@@ -1,10 +1,15 @@
 <?php
 namespace pmill\Scheduler\Interfaces;
 
-interface Task
+use DateTime;
+
+interface TaskInterface
 {
     public function run();
+
     public function getExpression();
+
     public function getOutput();
-    public function isDue();   
+
+    public function isDue();
 }

@@ -2,22 +2,22 @@
 
 namespace pmill\Scheduler\Tasks;
 
-class Shell extends Task
+class Shell extends TaskInterface
 {
     /**
      * @var string
      */
-    protected $command;
+    protected string $command;
 
     /**
      * @var array
      */
-    protected $arguments = [];
+    protected array $arguments = [];
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function run()
+    public function run(): int
     {
         $output = null;
         exec($this->getCommand() . ' ' . implode(' ', $this->arguments), $output, $result);
@@ -30,7 +30,7 @@ class Shell extends Task
      * @param string $command
      * @return $this
      */
-    public function setCommand($command)
+    public function setCommand(string $command): Shell
     {
         $this->command = $command;
         return $this;
@@ -39,7 +39,7 @@ class Shell extends Task
     /**
      * @return string
      */
-    public function getCommand()
+    public function getCommand(): string
     {
         return $this->command;
     }
@@ -48,7 +48,7 @@ class Shell extends Task
      * @param mixed $argument
      * @return $this
      */
-    public function addArgument($argument)
+    public function addArgument($argument): Shell
     {
         $this->arguments[] = $argument;
         return $this;
@@ -57,17 +57,17 @@ class Shell extends Task
     /**
      * @return array
      */
-    public function getArguments()
+    public function getArguments(): array
     {
         return $this->arguments;
     }
 
-    public function getTaskName()
+    public function getTaskName(): string
     {
         return "Shell Task";
     }
 
-    public function getTaskDescription()
+    public function getTaskDescription(): string
     {
         return $this->command;
     }

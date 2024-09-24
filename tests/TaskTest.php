@@ -5,8 +5,8 @@ class TaskTest extends PHPUnit_Framework_TestCase
 
     public function testSetExpression()
     {
-        /** @var \pmill\Scheduler\Tasks\Task $stub */
-        $stub = $this->getMockForAbstractClass('\pmill\Scheduler\Tasks\Task');
+        /** @var \pmill\Scheduler\Tasks\TaskInterface $stub */
+        $stub = $this->getMockForAbstractClass('\pmill\Scheduler\Tasks\TaskInterface');
         $stub->expects($this->any())
             ->method('run')
             ->will($this->returnValue('example output'));
@@ -17,8 +17,8 @@ class TaskTest extends PHPUnit_Framework_TestCase
 
     public function testIsDue()
     {
-        /** @var \pmill\Scheduler\Tasks\Task $stub */
-        $stub = $this->getMockForAbstractClass('\pmill\Scheduler\Tasks\Task');
+        /** @var \pmill\Scheduler\Tasks\TaskInterface $stub */
+        $stub = $this->getMockForAbstractClass('\pmill\Scheduler\Tasks\TaskInterface');
         $stub->expects($this->any())
             ->method('run')
             ->will($this->returnValue('example output'));

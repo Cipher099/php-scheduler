@@ -5,8 +5,8 @@ class TaskListTest extends PHPUnit_Framework_TestCase
 
     public function testAddTask()
     {
-        /** @var \pmill\Scheduler\Tasks\Task $stubTask */
-        $stubTask = $this->getMockForAbstractClass('\pmill\Scheduler\Tasks\Task');
+        /** @var \pmill\Scheduler\Tasks\TaskInterface $stubTask */
+        $stubTask = $this->getMockForAbstractClass('\pmill\Scheduler\Tasks\TaskInterface');
         $stubTask->expects($this->any())
             ->method('run')
             ->will($this->returnValue('task 1'));
@@ -19,14 +19,14 @@ class TaskListTest extends PHPUnit_Framework_TestCase
 
     public function testSetTasks()
     {
-        /** @var \pmill\Scheduler\Tasks\Task $stubTask1 */
-        $stubTask1 = $this->getMockForAbstractClass('\pmill\Scheduler\Tasks\Task');
+        /** @var \pmill\Scheduler\Tasks\TaskInterface $stubTask1 */
+        $stubTask1 = $this->getMockForAbstractClass('\pmill\Scheduler\Tasks\TaskInterface');
         $stubTask1->expects($this->any())
             ->method('run')
             ->will($this->returnValue('task 1'));
 
-        /** @var \pmill\Scheduler\Tasks\Task $stubTask2 */
-        $stubTask2 = $this->getMockForAbstractClass('\pmill\Scheduler\Tasks\Task');
+        /** @var \pmill\Scheduler\Tasks\TaskInterface $stubTask2 */
+        $stubTask2 = $this->getMockForAbstractClass('\pmill\Scheduler\Tasks\TaskInterface');
         $stubTask2->expects($this->any())
             ->method('run')
             ->will($this->returnValue('task 2'));
@@ -40,12 +40,12 @@ class TaskListTest extends PHPUnit_Framework_TestCase
 
     public function testRun()
     {
-        $stubTask1 = $this->getMock('\pmill\Scheduler\Tasks\Task');
+        $stubTask1 = $this->getMock('\pmill\Scheduler\Tasks\TaskInterface');
         $stubTask1->expects($this->any())->method('run')->will($this->returnValue('result 1'));
         $stubTask1->expects($this->any())->method('getOutput')->will($this->returnValue('output 1'));
         $stubTask1->expects($this->any())->method('isDue')->will($this->returnValue(true));
 
-        $stubTask2 = $this->getMock('\pmill\Scheduler\Tasks\Task');
+        $stubTask2 = $this->getMock('\pmill\Scheduler\Tasks\TaskInterface');
         $stubTask2->expects($this->any())->method('run')->will($this->returnValue('result 2'));
         $stubTask2->expects($this->any())->method('getOutput')->will($this->returnValue('output 2'));
         $stubTask2->expects($this->any())->method('isDue')->will($this->returnValue(true));

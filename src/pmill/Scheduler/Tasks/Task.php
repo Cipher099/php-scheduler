@@ -3,21 +3,22 @@
 namespace pmill\Scheduler\Tasks;
 
 use Cron\CronExpression;
+use DatePeriod;
 use DateTime;
 use Exception;
-use pmill\Scheduler\Interfaces\Task as TaskInterface;
+use pmill\Scheduler\Interfaces\TaskInterface as TaskInterface;
 
 abstract class Task implements TaskInterface
 {
     /**
      * @var string
      */
-    protected $expression;
+    protected string $expression;
 
     /**
      * @var null|string|array
      */
-    protected $output;
+    protected ?mixed $output;
 
     /**
      * The name of the task for visualization
@@ -32,13 +33,19 @@ abstract class Task implements TaskInterface
     abstract public function getTaskDescription(): string;
 
     /**
+     * Check the criteria of the job before running it
+     * @return true if job/task should run
+     */
+    abstract public function runCriteria(): ?bool;
+
+    /**
      * Checks two dates and whether the current is between them,
-     * @param DateTime $start the start date
-     * @param DateTime $end the end date
+     * @param DateTime|null $start the start date
+     * @param DateTime|null $end the end date
      * @return bool if the event is between the dates
      * @throws Exception when the start date is after the end date
      */
-    protected function betweenDates(DateTime $start, DateTime $end): bool
+    protected function betweenDates(?DateTime $start, ?DateTime $end): bool
     {
         $todayDate = new DateTime();
         if ($start->getTimestamp() > $end->getTimestamp()) {
@@ -55,10 +62,12 @@ abstract class Task implements TaskInterface
 
     /**
      * Sets a cron expression
-     * @param string $expression
-     * @return Task $this
+     * @param string $expression the cron job expression
+     * @return TaskInterface $this
      */
-    public function setExpression($expression)
+    public function setExpression(
+        string $expression
+    ): TaskInterface
     {
         $this->expression = $expression;
         return $this;
@@ -68,7 +77,7 @@ abstract class Task implements TaskInterface
      * Gets the current cron expression
      * @return string
      */
-    public function getExpression()
+    public function getExpression(): string
     {
         return $this->expression;
     }
@@ -76,9 +85,9 @@ abstract class Task implements TaskInterface
     /**
      * Sets the output from the task
      * @param null|string|array $output
-     * @return Task $this
+     * @return TaskInterface $this
      */
-    public function setOutput($output)
+    public function setOutput($output): TaskInterface
     {
         $this->output = $output;
         return $this;
@@ -97,7 +106,7 @@ abstract class Task implements TaskInterface
      * Checks whether the task is currently due
      * @return bool
      */
-    public function isDue()
+    public function isDue(): bool
     {
         $expression = $this->getExpression();
         if (!$expression) {

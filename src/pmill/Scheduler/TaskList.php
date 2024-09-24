@@ -2,54 +2,54 @@
 
 namespace pmill\Scheduler;
 
-use pmill\Scheduler\Interfaces\Task as TaskInterface;
+use pmill\Scheduler\Tasks\Task;
 
 class TaskList
 {
     /**
-     * @var TaskInterface[]
+     * @var array<Task>
      */
-    protected $tasks = [];
+    protected array $tasks = [];
 
     /**
-     * @var string[]
+     * @var array<string>
      */
-    protected $output = [];
+    protected array $output = [];
 
     /**
      * Adds a new task to the list
      *
-     * @param TaskInterface $task
+     * @param Task $task
      * @return TaskList $this
      */
-    public function addTask(TaskInterface $task)
+    public function addTask(Task $task): TaskList
     {
         $this->tasks[] = $task;
         return $this;
     }
 
     /**
-     * @param TaskInterface[] $tasks
+     * @param array<Task> $tasks
      */
-    public function setTasks($tasks)
+    public function setTasks(array $tasks): void
     {
         $this->tasks = $tasks;
     }
 
     /**
-     * @return TaskInterface[]
+     * @return array<Task>
      */
-    public function getTasks()
+    public function getTasks(): array
     {
         return $this->tasks;
     }
 
     /**
-     * @return TaskInterface[]
-     */
-    public function getTasksDue()
+     * @return array<Task>
+     * */
+    public function getTasksDue(): array
     {
-        return array_filter($this->tasks, function (TaskInterface $task) {
+        return array_filter($this->tasks, function (Task $task) {
             return $task->isDue();
         });
     }
@@ -57,7 +57,7 @@ class TaskList
     /**
      * @return array
      */
-    public function getOutput()
+    public function getOutput(): array
     {
         return $this->output;
     }
@@ -67,11 +67,15 @@ class TaskList
      *
      * @return array
      */
-    public function run()
+    public function run(): array
     {
         $this->output = [];
 
         foreach ($this->getTasksDue() as $task) {
+            if ($task->runCriteria() != null &&
+                !$task->runCriteria()) {
+                continue;
+            }
             $result = $task->run();
             $this->output[] = [
                 'task' => get_class($task),
